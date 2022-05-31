@@ -81,26 +81,3 @@ scatter_titles <- ggplotly(p = most_pop_titles,
                            # Call the custom text for the tooltip
                            tooltip = c("Month" = "x", "Number of checkouts" =
                            "y", "Title" = "colour", "Creator" = "label"))
-
-# Working on this -- group by month
-# Top ten monthly checkouts by title (includes entries from January, June, etc.)
-sorted_by_title_monthly <- exclude_classic_literature %>%
-  mutate("TitleMonthID" = paste0(Title, ", ", CheckoutMonth)) %>%
-  group_by(TitleMonthID) %>%
-  mutate("MonthlyCheckoutTotal" = sum(Checkouts)) %>%
-  group_by(CheckoutMonth) %>%
-  arrange(desc(MonthlyCheckoutTotal)) %>%
-  slice_max(MonthlyCheckoutTotal, n = 1)
-  
-# Create faceted bar chart --l one per month
-most_pop_titles_monthly <- ggplot(data = sorted_by_title_monthly) +
-  geom_col(aes(x = reorder(Title, +MonthlyCheckoutTotal), 
-               y = MonthlyCheckoutTotal)) +
-  coord_flip() +
-  labs(title = "Most Checked Out Titles by Month, Excluding Classic Literature", 
-       x = "Title", y = "Monthly Checkouts") +
-  facet_wrap(~CheckoutMonth)
-
-#Use plotly
-FacetsMonthlyTopTitles <- ggplotly(
-  most_pop_titles_monthly, orientation = 'h', tooltip = "MonthlyCheckoutTotal")
