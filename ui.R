@@ -68,5 +68,5 @@ ui <- navbarPage(
   theme = shiny_theme,
   "INFO 201",
   intro_tab,
-  titles_page
+  titles_page,
 )

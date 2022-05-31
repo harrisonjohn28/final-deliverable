@@ -58,6 +58,10 @@ sorted_by_title$Creator <- sub("^([^,]*,[^,]*),.*", "\\1",
 sorted_by_title_short <- sorted_by_title %>%
   slice_max(Checkouts, n = 5)
 
+# Add Month (name) column - this really messed the whole thing up
+# added_month_names <- sorted_by_title_short %>%
+#   mutate("Month" = month.name[sorted_by_title_short$CheckoutMonth])
+
 # Filter by title- based on user input
 filter_by_title <- sorted_by_title_short %>%
  filter(Title_1 %in% "input$title")
@@ -66,7 +70,7 @@ filter_by_title <- sorted_by_title_short %>%
 most_pop_titles <- ggplot(data = filter_by_title, 
   # text attribute for tooltip didn't work
   text = paste("Title:", c(Title_1,": ", Title_2), "<br>", "Author/Creator:",
-               Creator, "<br>", "Month:", CheckoutMonth, "<br>",
+               Creator, "<br>", "Month:", Month, "<br>",
                "Number of checkouts:", Checkouts)) +
   geom_point(aes(x = CheckoutMonth, 
                y = Checkouts,

@@ -15,14 +15,10 @@ server <- function(input, output) {
   output$bubble_plot <- renderPlotly({
     # Filter by title- based on user input
     filter_by_title <- sorted_by_title_short %>%
-      filter(Title_1 %in% input$title)
+      filter(Title_1 %in% "input$title")
     
     # Create scatter plot
-    most_pop_titles <- ggplot(data = filter_by_title, 
-      # text attribute for tooltip didn't work
-      text = paste("Title:", c(Title_1,": ", Title_2), "<br>", "Author/Creator:",
-             Creator, "<br>", "Month:", CheckoutMonth, "<br>",
-             "Number of checkouts:", Checkouts)) +
+    most_pop_titles <- ggplot(data = filter_by_title) +
       geom_point(aes(x = CheckoutMonth, 
                      y = Checkouts,
                      colour = Title_1,
@@ -40,6 +36,7 @@ server <- function(input, output) {
                                dynamicTicks = TRUE,
                                # Call the custom text for the tooltip
                                tooltip = c("Month" = "x", "Number of checkouts" =
-                                "y", "Title" = "colour", "Creator" = "label"))})
-  return(scatter_titles)
+                               "y", "Title" = "colour", "Creator" = "label"))
+    return(scatter_titles)
+    })
 }
