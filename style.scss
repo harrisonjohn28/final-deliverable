@@ -6,6 +6,9 @@ p {
   font-family: verdana;
   color: #1F2354;
 }
+body {
+  min-height: 100vh;
+}
 h2 {
   font-family: verdana;
   color: #545EE8;
@@ -14,4 +17,9 @@ h3 {
   font-family: verdana;
   font-size: 130%;
   color: #545EE8;
+}
+
+img {
+  width: 200px;
+  height: auto;
 }
