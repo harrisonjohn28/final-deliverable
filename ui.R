@@ -2,18 +2,9 @@ library(plotly)
 library(bslib)
 library(shiny)
 
-######### READ THIS PLEASE #########
-#Other than lib_df, this is all my code from a4; it *will not work* since it's
-#referencing an entirely different dataset. Use this as a template or guide
-#for how to build out your pages, but don't try to run it or you'll be sad.
-#GL on the project! <3 - J
-
-# Source charts
-source("bubble_chart.R")
-
 #Loading data 
 ##(setwd to source file location and have checkouts_by_title_2020 there)
-lib_df <- read.csv("checkouts_by_title_2020.csv", stringsAsFactors = FALSE)
+# lib_df <- read.csv("checkouts_by_title_2020.csv", stringsAsFactors = FALSE)
 
 # Creating an empty theme to fill with bs_theme_update
 shiny_theme <- bs_theme(bg = "black",
@@ -35,8 +26,9 @@ title_widget <- sidebarPanel(
   selectInput(
     inputId = "title",
     label = "Select Title(s)",
-    choices = sorted_by_title_short$Title_1,
-    multiple = TRUE
+    choices = clean_book_data$Title_1,
+    multiple = TRUE,
+    selected = "So You Want To Talk About Race"
     )
 #,
 )

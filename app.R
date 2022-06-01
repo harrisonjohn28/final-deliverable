@@ -1,7 +1,7 @@
 library(shiny)
 
-source("ui.R")
 source("server.R")
+source("ui.R")
 
 library(rsconnect)
 
