@@ -6,6 +6,14 @@ library(shiny)
 ##(setwd to source file location and have checkouts_by_title_2020 there)
 # lib_df <- read.csv("checkouts_by_title_2020.csv", stringsAsFactors = FALSE)
 
+# Read in clean csv file for bubble chart
+clean_book_data <- read.csv("clean_book_data.csv")
+# Read in clean csv file for line chart
+genre_data <- read.csv("top_10_genres_per_month.csv")
+# Read in clean csv file for bar chart
+format_data <- read.csv("format_trunc.csv")
+
+
 # Creating an empty theme to fill with bs_theme_update
 shiny_theme <- bs_theme(bg = "black",
                      fg = "white",
@@ -91,11 +99,41 @@ summary_tab <- tabPanel(
   )
 )
 
+###Bar chart
+chart_sidebar <- sidebarPanel(
+  sliderInput(
+    inputId = "barMonths",
+    label = "Time Period in 2020",
+    min = 1, 
+    max = 12, 
+    value = c(1, 12)
+    ),
+  checkboxGroupInput(
+    "barFormat", 
+    label = h3("Formats of Interest"), 
+    choices = list("Book" = 1, "eBook" = 2, "Audio" = 3, "Video" = 4, "Other" = 5),
+    selected = c(1:5)
+    )
+)
+
+format_chart <- mainPanel(
+  plotlyOutput(outputId = "format_chart")
+)
+
+format_page <- tabPanel(
+  "Format Checkouts",
+  sidebarLayout(
+    chart_sidebar,
+    format_chart
+  )
+)
+
 ui <- navbarPage(
   theme = shiny_theme,
   "INFO 201",
   intro_tab,
   titles_page,
   genres_page,
+  format_page,
   summary_tab
 )
