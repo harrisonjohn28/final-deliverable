@@ -1,6 +1,8 @@
 library(plotly)
 library(bslib)
 library(shiny)
+library(thematic)
+library(showtext)
 
 #Loading data 
 ##(setwd to source file location and have checkouts_by_title_2020 there)
@@ -21,7 +23,8 @@ shiny_theme <- bs_theme(bg = "black",
                      primary = "white")
 shiny_theme <- bs_theme_update(shiny_theme, bootswatch = "sandstone")
 # Updated theme to flatly
-shiny_theme <- bs_theme_update(shiny_theme, bootswatch = "flatly")
+shiny_theme <- bs_theme_update(shiny_theme, bootswatch = "flatly") %>% 
+  bs_add_rules(sass::sass_file("style.scss"))
 
 # Intro tab
 intro_tab <- tabPanel(
