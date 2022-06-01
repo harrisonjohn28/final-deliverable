@@ -84,7 +84,8 @@ genres_sidebar <- sidebarPanel(
   )
 )
 genre_chart <- mainPanel(
-  plotlyOutput(outputId = "line_chart")
+  plotlyOutput(outputId = "line_chart"),
+  includeMarkdown("lineAnalysis.md")
 )
 genres_page <- tabPanel(
   "Top Genres",
@@ -93,6 +94,7 @@ genres_page <- tabPanel(
     genre_chart
   )
 )
+
 summary_tab <- tabPanel(
   "Summary",
   fluidPage(
