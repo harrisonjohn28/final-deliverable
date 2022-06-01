@@ -18,6 +18,9 @@ shiny_theme <- bs_theme_update(shiny_theme, bootswatch = "flatly")
 intro_tab <- tabPanel(
   "Intro",
    fluidPage(
+     mainPanel(
+       includeHTML("introduction.html")
+     )
    # Pulling in markdown file to display
    # includeMarkdown("a4_analysis.md"),
   )
@@ -79,12 +82,20 @@ genres_page <- tabPanel(
     genre_chart
   )
 )
-
+summary_tab <- tabPanel(
+  "Summary",
+  fluidPage(
+    mainPanel(
+      includeHTML("summary.html")
+    )
+  )
+)
 
 ui <- navbarPage(
   theme = shiny_theme,
   "INFO 201",
   intro_tab,
   titles_page,
-  genres_page
+  genres_page,
+  summary_tab
 )
