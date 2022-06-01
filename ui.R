@@ -58,9 +58,33 @@ titles_page <- tabPanel(
    )
 )
 
+
+# Ben's line chart page
+genres_sidebar <- sidebarPanel(
+  sliderInput(
+    inputId = "numGenres",
+    label = "Select the number of genres per month you'd like to display:",
+    min = 1,
+    max = 10,
+    value = 6
+  )
+)
+genre_chart <- mainPanel(
+  plotlyOutput(outputId = "line_chart")
+)
+genres_page <- tabPanel(
+  "Top Genres",
+  sidebarLayout(
+    genres_sidebar,
+    genre_chart
+  )
+)
+
+
 ui <- navbarPage(
   theme = shiny_theme,
   "INFO 201",
   intro_tab,
   titles_page,
+  genres_page
 )

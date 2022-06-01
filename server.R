@@ -10,7 +10,8 @@ library(egg) #extended ggplot2 (mainly for ggarrange if needed)
 
 # Read in clean csv file for bubble chart
 clean_book_data <- read.csv("clean_book_data.csv")
-
+# Read in clean csv file for line chart
+genre_data <- read.csv("top_10_genres_per_month.csv")
 server <- function(input, output) {
   output$bubble_plot <- renderPlotly({
     # Filter by title- based on user input
@@ -47,4 +48,28 @@ server <- function(input, output) {
                                tooltip = c("text"))
     return(scatter_titles)
     })
+  
+  output$line_chart <- renderPlotly({
+    genres <- genre_data %>%
+      group_by(CheckoutMonth) %>%
+      slice(1:input$numGenres) %>% 
+      rename(Month = CheckoutMonth,
+             Checkouts = total,
+             Genre = genre1 
+             )
+    a <- ggplot(data = genres) +
+      geom_line(mapping = aes(x = Month, 
+                              y = Checkouts, 
+                              color = Genre),
+
+                size = 1) +
+      scale_x_continuous(breaks = c(1:12),
+                         labels = month.name,
+                         name = "Month") +
+      scale_y_continuous(name = "Total Checkouts") +
+      labs(title = "Top Genres Throughout 2020", color = "Genre") +
+      theme(plot.title = element_text(hjust = 0.5),
+            axis.text.x = element_text(angle = 45))
+    return(ggplotly(a))
+  })
 }
