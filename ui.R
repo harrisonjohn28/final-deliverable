@@ -11,6 +11,8 @@ shiny_theme <- bs_theme(bg = "black",
                      fg = "white",
                      primary = "white")
 shiny_theme <- bs_theme_update(shiny_theme, bootswatch = "sandstone")
+# Updated theme to flatly
+shiny_theme <- bs_theme_update(shiny_theme, bootswatch = "flatly")
 
 # Intro tab
 intro_tab <- tabPanel(
