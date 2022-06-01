@@ -40,8 +40,7 @@ server <- function(input, output) {
                      group = Title_1,
                      # Create partially opaque points
                      alpha = 0.25)) +
-      labs(title = "Most Checked Out Titles of 2020,
-    Excluding Classic Literature", 
+      labs(title = "Most Checked Out Titles of 2020", 
            # Set legend title
            color = "Titles", size = "", alpha = "", x = "Month",
            y = "Total Monthly Checkouts")
