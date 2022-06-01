@@ -30,10 +30,14 @@ server <- function(input, output) {
                         "\nAuthor/Creator:", Creator, "\nMonth:", Month,
                         "\nNumber of checkouts:", Checkouts),
                      # Remind graph to group by title
-                     group = Title_1)) +
-      labs(title = "Most Checked Out Titles of 2020, Excluding Classic Literature", 
+                     group = Title_1,
+                     # Create partially opaque points
+                     alpha = 0.25)) +
+      labs(title = "Most Checked Out Titles of 2020,
+    Excluding Classic Literature", 
            # Set legend title
-           color = "Titles", size = "", x = "Month", y = "Total Monthly Checkouts")
+           color = "Titles", size = "", alpha = "", x = "Month",
+           y = "Total Monthly Checkouts")
     
     # Make interactive
     scatter_titles <- ggplotly(p = most_pop_titles,
