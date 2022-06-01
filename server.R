@@ -3,6 +3,7 @@ library(markdown) #to resolve shinyapps errors
 library(tidyverse) #ggplot2, tidyr, dplyr, stringr
 library(plotly) #interactive graphs
 # library(egg) #extended ggplot2 (mainly for ggarrange if needed)
+library(scales)
 
 #Loading data 
 ##(setwd to source file location and have checkouts_by_title_2020 there)
@@ -12,6 +13,9 @@ library(plotly) #interactive graphs
 clean_book_data <- read.csv("clean_book_data.csv")
 # Read in clean csv file for line chart
 genre_data <- read.csv("top_10_genres_per_month.csv")
+# Read in clean csv file for bar chart
+format_data <- read.csv("format_trunc.csv")
+
 server <- function(input, output) {
   output$bubble_plot <- renderPlotly({
     # Filter by title- based on user input
@@ -72,4 +76,20 @@ server <- function(input, output) {
             axis.text.x = element_text(angle = 45))
     return(ggplotly(a))
   })
+  
+  output$format_chart <- renderPlotly({
+    server_df <- format_data %>% 
+      filter(CheckoutMonth >= input$barMonths[1] & CheckoutMonth <= input$barMonths[2]) %>% 
+      filter(format_code %in% input$barFormat)
+    
+    cool <- ggplot(server_df, aes(fill = format_code, x=CheckoutMonth)) +
+      geom_bar(position="stack") +
+      ggtitle("Monthly Check Out Volume by Media Format") +
+      xlab("Checkout Month (January to December 2020)") + ylab("Total Titles Checked Out") +
+      scale_x_continuous(breaks = pretty_breaks()) +
+      scale_fill_discrete(name = "Format", labels = c("Book", "eBook", "Audio", "Visual", "Other"))
+    
+    return(ggplotly(cool))
+  })
+  
 }
