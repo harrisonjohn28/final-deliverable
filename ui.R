@@ -4,10 +4,6 @@ library(shiny)
 library(thematic)
 library(showtext)
 
-#Loading data 
-##(setwd to source file location and have checkouts_by_title_2020 there)
-# lib_df <- read.csv("checkouts_by_title_2020.csv", stringsAsFactors = FALSE)
-
 # Read in clean csv file for bubble chart
 clean_book_data <- read.csv("clean_book_data.csv")
 # Read in clean csv file for line chart
@@ -24,8 +20,6 @@ intro_tab <- tabPanel(
   "Intro",
    fluidPage(
       includeHTML("introduction.html")
-   # Pulling in markdown file to display
-   # includeMarkdown("a4_analysis.md"),
   )
 )
 
@@ -38,18 +32,8 @@ title_widget <- sidebarPanel(
     multiple = TRUE,
     selected = "So You Want To Talk About Race"
     )
-#,
 )
-# Year selection from a range slider
-#   sliderInput(inputId = "year_select",
-#               label = "Year Selection",
-#               min = min(co2$year),
-#               max = max(co2$year),
-#               value = c(1920, 2010)
-#   )
-# )
-# 
-# 
+
 # Displaying interactive plot, built with Plotly
 bubble_plot <- mainPanel(
   plotlyOutput(outputId = "bubble_plot"),
@@ -115,10 +99,24 @@ genres_page <- tabPanel(
     genre_chart
   ),
   p(`class` = "ben",
-    "We chose this chart to analyze the public's interest in specific genres over the course of the year, as a worldwide pandemic may affect the topics people are interested in checking out. As we can see, the most popular genres stay fairly regular relative to one another, with the exception of Juvenile Fiction (YA novel), which began being checked out at an incredible rate as quarantine set in. A likely explanation for this finding is that when school was canceled for middle and high schoolers, many of them choose to check out their favorite books to read while stuck at home. Young Adult is a very popular genre with this age group and this would explain the sudden boom in checkouts."
+    "We chose this chart to analyze the public's interest in specific genres over
+    the course of the year, as a worldwide pandemic may affect the topics people 
+    are interested in checking out. As we can see, the most popular genres stay 
+    fairly regular relative to one another, with the exception of Juvenile Fiction 
+    (YA novel), which began being checked out at an incredible rate as quarantine 
+    set in. A likely explanation for this finding is that when school was canceled 
+    for middle and high schoolers, many of them choose to check out their favorite 
+    books to read while stuck at home. Young Adult is a very popular genre with this 
+    age group and this would explain the sudden boom in checkouts."
 ),
 p(`class` = "ben",
-  "Many of the books' primary genres were labeled as fiction/nonfiction, which would've been the most popular \"genres\" by far had they been included on the graph. Because splitting up books into these two labels is vague and inconsistent (not every book had this distinction, and some had them elsewhere in their list of subjects), we chose to replace these labels with their secondary, more specific genre. \"Literature\" refers to the books that were labeled as fiction but had no other listed genre.")
+  "Many of the books' primary genres were labeled as fiction/nonfiction, which 
+  would've been the most popular \"genres\" by far had they been included on the
+  graph. Because splitting up books into these two labels is vague and 
+  inconsistent (not every book had this distinction, and some had them elsewhere
+  in their list of subjects), we chose to replace these labels with their secondary,
+  more specific genre. \"Literature\" refers to the books that were labeled as 
+  fiction but had no other listed genre.")
 
 )
 
@@ -134,9 +132,9 @@ chart_sidebar <- sidebarPanel(
   sliderInput(
     inputId = "barMonths",
     label = "Time Period in 2020",
-    min = 1, 
-    max = 12, 
-    value = c(1, 12)
+    min = 1, #January
+    max = 12, #December
+    value = c(1, 12) #Setting slider range to full year
     ),
   checkboxGroupInput(
     "barFormat", 
@@ -156,10 +154,31 @@ format_page <- tabPanel(
     format_chart
   ),
   p(`class` = "ben",
-    "As the times have changed, libraries have grown from just spaces to house books into a cultural hub where materials of any medium can be shared - within the dataset, there are over 30 unique categories of materials, from books and CDs to atlases and flash cards. We wanted to see the breakdown of how these materials were used by the general public, while simultaneously seeing how the closure of SPL locations due to the coronavirus pandemic affected checkout rates over the course of the year. We split the dataset into five coded categories; books, eBooks, audio-related materials such as CDs, cassettes, and audio books, video-related materials such as DVDs and VHS tapes, and a catch all 'other' category."
+    "As the times have changed, libraries have grown from just spaces to house 
+    books into a cultural hub where materials of any medium can be shared - within
+    the dataset, there are over 30 unique categories of materials, from books and 
+    CDs to atlases and flash cards. We wanted to see the breakdown of how these 
+    materials were used by the general public, while simultaneously seeing how the 
+    closure of SPL locations due to the coronavirus pandemic affected checkout rates 
+    over the course of the year. We split the dataset into five coded categories; 
+    books, eBooks, audio-related materials such as CDs, cassettes, and audio books,
+    video-related materials such as DVDs and VHS tapes, and a catch all 'other' 
+    category."
   ),
   p(`class` = "ben",
-    "When charting the checkout rates over the course of 2020, you're able to see exactly how hard SPL was hit by COVID; overall checkouts were cut in half, going from over 200,000 in March to just under 100,000 in April. The split in format is also pretty distinct; eBooks jump in share slightly and audio checkouts shrink slightly, but physical books and videos are decimated until August, when curbside pickup was opened early in the month. Overall patronage never recovered from its early highs in 2020, but the continued use of eBooks and digital audio book services showed that Seattlites were still wanting to engage with the materials they had during quarantine. Further exploration is needed to explain why the video category consistently ranked so low; is it simply because SPL only did physical checkouts of videos, or are their streaming services less feasible than something like a Netflix or Hulu, if they're present at all?")
+    "When charting the checkout rates over the course of 2020, you're able to see
+    exactly how hard SPL was hit by COVID; overall checkouts were cut in half, 
+    going from over 200,000 in March to just under 100,000 in April. The split 
+    in format is also pretty distinct; eBooks jump in share slightly and audio 
+    checkouts shrink slightly, but physical books and videos are decimated until 
+    August, when curbside pickup was opened early in the month. Overall patronage 
+    never recovered from its early highs in 2020, but the continued use of eBooks 
+    and digital audio book services showed that Seattlites were still wanting to 
+    engage with the materials they had during quarantine. Further exploration is 
+    needed to explain why the video category consistently ranked so low; is it 
+    simply because SPL only did physical checkouts of videos, or are their streaming 
+    services less feasible than something like a Netflix or Hulu, if they're 
+    present at all?")
   
 )
 
