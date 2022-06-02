@@ -15,8 +15,6 @@ clean_book_data <- read.csv("clean_book_data.csv")
 genre_data <- read.csv("top_10_genres_per_month.csv")
 # Read in clean csv file for bar chart
 format_data <- read.csv("format_trunc.csv") 
-format_data$format_code <- as.character(format_data$format_code)
-
 
 server <- function(input, output) {
   output$bubble_plot <- renderPlotly({
@@ -57,10 +55,10 @@ server <- function(input, output) {
   output$line_chart <- renderPlotly({
     genres <- genre_data %>%
       group_by(CheckoutMonth) %>%
-      slice(1:input$numGenres) %>% 
+      slice(1:input$numGenres) %>%
       rename(Month = CheckoutMonth,
              Checkouts = total,
-             Genre = genre1 
+             Genre = genre1
              )
     a <- ggplot(data = genres) +
       geom_line(mapping = aes(x = Month, 
@@ -80,16 +78,16 @@ server <- function(input, output) {
   
   output$format_chart <- renderPlotly({
     server_df <- format_data %>% 
-      filter(CheckoutMonth >= input$barMonths[1] & CheckoutMonth <= input$barMonths[2]) %>% 
-      filter(format_code %in% input$barFormat)
+      filter(Checkout.Month >= input$barMonths[1] & Checkout.Month <= input$barMonths[2]) %>% 
+      filter(Format %in% input$barFormat)
     
-    cool <- ggplot(server_df, aes(fill = format_code, x=CheckoutMonth)) +
+    cool <- ggplot(server_df, aes(fill = Format, x=Checkout.Month,
+                                  )) +
       geom_bar(position="stack") +
       ggtitle("Monthly Check Out Volume by Media Format") +
-      xlab("Checkout Month (January to December 2020)") + ylab("Total Titles Checked Out") +
-      scale_x_continuous(breaks = pretty_breaks()) +
+      xlab("Checkout Month") + ylab("Total Titles Checked Out") +
+      scale_x_continuous(breaks = pretty_breaks()) + 
       scale_fill_discrete(name = "Format", labels = c("Book", "eBook", "Audio", "Visual", "Other"))
-    
     return(ggplotly(cool))
   })
   
