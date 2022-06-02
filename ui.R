@@ -54,7 +54,8 @@ title_widget <- sidebarPanel(
 # 
 # Displaying interactive plot, built with Plotly
 bubble_plot <- mainPanel(
-  plotlyOutput(outputId = "bubble_plot")
+  plotlyOutput(outputId = "bubble_plot"),
+  includeMarkdown("bubble_chart_analysis.md")
 )
 
 # Building second tab
