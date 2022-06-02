@@ -189,7 +189,7 @@ format_page <- tabPanel(
 
 ui <- navbarPage(
   theme = shiny_theme,
-  "INFO 201",
+  "What Seattlites Were Reading in 2020",
   intro_tab,
   titles_page,
   genres_page,
