@@ -1,7 +1,7 @@
 h1 {
   font-family: Lucida Sans ;
   color: #545EE8;
-  text-shadow: 2px 2px #A2A2A2;
+  text-shadow: 2px 2px #DADADA;
   
 }
 p {
@@ -12,6 +12,11 @@ p {
 }
 .ben {
   color: Blue;
+}
+
+div#bubble_plot ~ p {
+    border: 10px;
+    border-color: red;
 }
 
 body {
@@ -25,9 +30,8 @@ h2 {
 }
 h3 {
   font-family: Verdana;
-  font-size: 130%;
+  font-size: 16px;
   color: #545EE8;
-  padding-right: 100px;
   padding-left: 100px;
 }
 
