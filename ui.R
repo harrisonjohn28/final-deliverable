@@ -116,7 +116,11 @@ p(`class` = "ben",
   inconsistent (not every book had this distinction, and some had them elsewhere
   in their list of subjects), we chose to replace these labels with their secondary,
   more specific genre. \"Literature\" refers to the books that were labeled as 
-  fiction but had no other listed genre.")
+  fiction but had no other listed genre. Note: When displaying 3 genres, Historical 
+  Fiction and Mystery are overtaken by Juvenile Fiction from April and July. These 
+  two genres should disappear, but because they re-enter the top 3 at a later point, 
+  ggplotly erroneously connects the dots between these time periods. 
+  The tooltips for these genres only appear over the true data points.")
 
 )
 
