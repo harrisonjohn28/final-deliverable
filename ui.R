@@ -14,8 +14,6 @@ clean_book_data <- read.csv("clean_book_data.csv")
 genre_data <- read.csv("top_10_genres_per_month.csv")
 # Read in clean csv file for bar chart
 format_data <- read.csv("format_trunc.csv")
-format_data$format_code <- as.character(format_data$format_code)
-
 
 # Setting our default theme to flatly and adding css
 shiny_theme <- bs_theme(bootswatch = "flatly") %>% 
@@ -54,7 +52,16 @@ title_widget <- sidebarPanel(
 # 
 # Displaying interactive plot, built with Plotly
 bubble_plot <- mainPanel(
-  plotlyOutput(outputId = "bubble_plot"),
+  plotlyOutput(outputId = "bubble_plot")
+)
+
+# Building second tab
+titles_page <- tabPanel(
+  "Most Popular Titles",
+  sidebarLayout(
+    title_widget,
+    bubble_plot
+   ),
   p(`class` = "ben",
     "This chart visualizes the city's interests by month in 2020. We chose to
 generate this chart because it displays the five books that Seattle residents
@@ -65,35 +72,26 @@ skewed our results away from Seattlites' current interests. People often choose
 to check out classic literature from public libraries because public libraries'
 collections skew towards older publications and it is more convenient to borrow
 these books (that will only be read once) rather than purchase them. Such titles
-include _Jane Eyre_, _Treasure Island_, _Pride and Prejudice_, and _Frankenstein_."
+include", em("Jane Eyre,"), em("Treasure Island,"), em("Pride and Prejudice,"), "and ", em("Frankenstein.")
   ),
   p(`class` = "ben",
     "Of all non-classical literature titles in 2020, the text that Seattlites were
-most interested in reading for the year was Michelle Obama's memoir,
-_Becoming_, followed by Ijeoma Oluo's _So You Want to Talk About Race_ and
-Tara Westover's memoir _Educated_. Coinciding with protests in 2020 following
+most interested in reading for the year was Michelle Obama's memoir,",
+em("Becoming,"), "followed by Ijeoma Oluo's", em("So You Want to Talk About Race"), "and
+Tara Westover's memoir", em("Educated."), "Coinciding with protests in 2020 following
 the death of George Floyd at the hands of police, 40% of the top ten list for
 the year spoke directly on race in America; notably, aside from Obama and
 Oluo's aforementioned texts, Ibram X. Kendi and Robin Wall Kimmerer are the only
-other authors of color on this list with _How to Be an Antiracist_ and
-_Braiding Sweetgrass_. In monthly terms, the highest number of monthly checkouts
-was 5,218 checkouts of _So You Want to Talk about Race_, followed by
-3,211 checkouts of _White Fragility_, and 2,811 checkouts of
-_Me and White Supremacy_, all in June, the month after George Floyd's death."
-    ),
-p(`class` = "ben",
-  "Checkout trends generally follow what's nationally interesting; at the end of
-2020, _Becoming_ sat on the New York Times bestseller list for 88 weeks, as did
-Glennon Doyle's _Untamed_ with 39 weeks and _Braiding Sweetgrass_ with 34.")
-)
-
-# Building second tab
-titles_page <- tabPanel(
-  "Most Popular Titles",
-  sidebarLayout(
-    title_widget,
-    bubble_plot
-   )
+other authors of color on this list with", em("How to Be an Antiracist"), "and",
+em("Braiding Sweetgrass."), "In monthly terms, the highest number of monthly checkouts
+was 5,218 checkouts of", em("So You Want to Talk about Race"), "followed by
+3,211 checkouts of", em("White Fragility,"), "and 2,811 checkouts of",
+em("Me and White Supremacy,"), "all in June, the month after George Floyd's death."
+  ),
+  p(`class` = "ben",
+    "Checkout trends generally follow what's nationally interesting; at the end of
+2020,", em("Becoming"), "sat on the New York Times bestseller list for 88 weeks, as did
+Glennon Doyle's", em("Untamed"), "with 39 weeks and", em("Braiding Sweetgrass"), "with 34.")
 )
 
 
@@ -142,7 +140,7 @@ chart_sidebar <- sidebarPanel(
     ),
   checkboxGroupInput(
     "barFormat", 
-    label = h3("Formats of Interest"), 
+    label = "Formats of Interest", 
     choices = list("Book", "eBook", "Audio", "Video", "Other")
     )
 )
@@ -156,7 +154,13 @@ format_page <- tabPanel(
   sidebarLayout(
     chart_sidebar,
     format_chart
-  )
+  ),
+  p(`class` = "ben",
+    "As the times have changed, libraries have grown from just spaces to house books into a cultural hub where materials of any medium can be shared - within the dataset, there are over 30 unique categories of materials, from books and CDs to atlases and flash cards. We wanted to see the breakdown of how these materials were used by the general public, while simultaneously seeing how the closure of SPL locations due to the coronavirus pandemic affected checkout rates over the course of the year. We split the dataset into five coded categories; books, eBooks, audio-related materials such as CDs, cassettes, and audio books, video-related materials such as DVDs and VHS tapes, and a catch all 'other' category."
+  ),
+  p(`class` = "ben",
+    "When charting the checkout rates over the course of 2020, you're able to see exactly how hard SPL was hit by COVID; overall checkouts were cut in half, going from over 200,000 in March to just under 100,000 in April. The split in format is also pretty distinct; eBooks jump in share slightly and audio checkouts shrink slightly, but physical books and videos are decimated until August, when curbside pickup was opened early in the month. Overall patronage never recovered from its early highs in 2020, but the continued use of eBooks and digital audio book services showed that Seattlites were still wanting to engage with the materials they had during quarantine. Further exploration is needed to explain why the video category consistently ranked so low; is it simply because SPL only did physical checkouts of videos, or are their streaming services less feasible than something like a Netflix or Hulu, if they're present at all?")
+  
 )
 
 ui <- navbarPage(
