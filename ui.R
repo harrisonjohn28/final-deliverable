@@ -14,8 +14,6 @@ clean_book_data <- read.csv("clean_book_data.csv")
 genre_data <- read.csv("top_10_genres_per_month.csv")
 # Read in clean csv file for bar chart
 format_data <- read.csv("format_trunc.csv")
-format_data$format_code <- as.character(format_data$format_code)
-
 
 # Creating an empty theme to fill with bs_theme_update
 shiny_theme <- bs_theme(bg = "black",
