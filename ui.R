@@ -139,7 +139,8 @@ chart_sidebar <- sidebarPanel(
   checkboxGroupInput(
     "barFormat", 
     label = "Formats of Interest", 
-    choices = list("Book", "eBook", "Audio", "Video", "Other")
+    choices = list("Book", "eBook", "Audio", "Video", "Other"),
+    selected = c("Book", "eBook", "Audio", "Video", "Other")
     )
 )
 
