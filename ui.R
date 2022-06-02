@@ -140,7 +140,7 @@ chart_sidebar <- sidebarPanel(
     ),
   checkboxGroupInput(
     "barFormat", 
-    label = h3("Formats of Interest"), 
+    label = "Formats of Interest", 
     choices = list("Book", "eBook", "Audio", "Video", "Other")
     )
 )
@@ -154,7 +154,13 @@ format_page <- tabPanel(
   sidebarLayout(
     chart_sidebar,
     format_chart
-  )
+  ),
+  p(`class` = "ben",
+    "As the times have changed, libraries have grown from just spaces to house books into a cultural hub where materials of any medium can be shared - within the dataset, there are over 30 unique categories of materials, from books and CDs to atlases and flash cards. We wanted to see the breakdown of how these materials were used by the general public, while simultaneously seeing how the closure of SPL locations due to the coronavirus pandemic affected checkout rates over the course of the year. We split the dataset into five coded categories; books, eBooks, audio-related materials such as CDs, cassettes, and audio books, video-related materials such as DVDs and VHS tapes, and a catch all 'other' category."
+  ),
+  p(`class` = "ben",
+    "When charting the checkout rates over the course of 2020, you're able to see exactly how hard SPL was hit by COVID; overall checkouts were cut in half, going from over 200,000 in March to just under 100,000 in April. The split in format is also pretty distinct; eBooks jump in share slightly and audio checkouts shrink slightly, but physical books and videos are decimated until August, when curbside pickup was opened early in the month. Overall patronage never recovered from its early highs in 2020, but the continued use of eBooks and digital audio book services showed that Seattlites were still wanting to engage with the materials they had during quarantine. Further exploration is needed to explain why the video category consistently ranked so low; is it simply because SPL only did physical checkouts of videos, or are their streaming services less feasible than something like a Netflix or Hulu, if they're present at all?")
+  
 )
 
 ui <- navbarPage(
